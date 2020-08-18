@@ -100,3 +100,8 @@ variable "load_balancer_type" {
   default = "application"
 }
 
+variable "tags" {
+  type        = map(any)
+  description = "Map of tags to add."
+  default     = {}
+}

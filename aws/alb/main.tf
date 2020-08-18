@@ -9,11 +9,11 @@ resource "aws_alb" "alb" {
   load_balancer_type = var.load_balancer_type
   idle_timeout       = var.idle_timeout
 
-  tags = {
+  tags = merge({
     Name     = coalesce(var.alb_name, "alb-${var.app_name}-${var.app_env}")
     app_name = var.app_name
     app_env  = var.app_env
-  }
+  }, var.tags)
 }
 
 /*
@@ -35,6 +35,12 @@ resource "aws_alb_target_group" "default" {
     unhealthy_threshold = var.unhealthy_threshold
     matcher             = var.health_check_status_codes
   }
+
+  tags = merge({
+    Name     = "${var.app_name}-${var.app_env}"
+    app_name = var.app_name
+    app_env  = var.app_env
+  }, var.tags)
 }
 
 /*
