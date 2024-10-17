@@ -21,18 +21,8 @@ variable "db_root_pass" {
   type = string
 }
 
-variable "deletion_protection" {
-  type    = bool
-  default = false
-}
-
 variable "subnet_group_name" {
   type = string
-}
-
-variable "availability_zone" {
-  type    = string
-  default = ""
 }
 
 variable "security_groups" {
@@ -42,9 +32,32 @@ variable "security_groups" {
 /*
  * Optional variables
  */
+
+variable "apply_immediately" {
+  description = "Apply database modifications immediately, rather than during the next maintenance window. CAUTION: may cause downtime!"
+  type        = bool
+  default     = false
+}
+
+variable "availability_zone" {
+  type    = string
+  default = ""
+}
+
+variable "ca_cert_identifier" {
+  description = "The identifier of the CA certificate for the DB instance."
+  type        = string
+  default     = null
+}
+
 variable "copy_tags_to_snapshot" {
   type    = bool
   default = true
+}
+
+variable "deletion_protection" {
+  type    = bool
+  default = false
 }
 
 variable "engine" {
@@ -111,4 +124,16 @@ variable "tags" {
   type        = map(any)
   description = "Map of tags to add to the rds instance. Duplicate tags will be overridden."
   default     = {}
+}
+
+variable "replicate_source_db" {
+  type        = string
+  description = "To create a replica DB, specify the source database"
+  default     = null
+}
+
+variable "replica_mode" {
+  type        = string
+  description = "Specifies whether the replica is in either \"mounted\" or \"open-read-only\" mode. This attribute is only supported by Oracle instances."
+  default     = null
 }
