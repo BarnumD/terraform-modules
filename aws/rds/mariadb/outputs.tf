@@ -21,3 +21,7 @@ output "endpoint" {
 output "availability_zone" {
   value = aws_db_instance.db_instance.availability_zone
 }
+
+output "ca_cert_identifier" {
+  value = aws_db_instance.db_instance.ca_cert_identifier
+}
